@@ -8,10 +8,8 @@ import { useAuth } from '../contexts/AuthContext';
 
 const opcoes = [
   { nome: 'Editar perfil', icone: 'person-outline', rota: 'EditarPerfil' },
-  { nome: 'Meus agendamentos', icone: 'calendar-outline', rota: 'MinhasConsultas' },
+  { nome: 'Agendar consulta', icone: 'calendar-outline', rota: 'Consultas' },
   { nome: 'Notificações', icone: 'notifications-outline', rota: 'Notificacoes' },
-  { nome: 'Ajuda e suporte', icone: 'help-circle-outline', rota: 'Ajuda' },
-  { nome: 'Configurações', icone: 'settings-outline', rota: 'Configuracoes' },
 ];
 
 // Extrai as iniciais do nome pra usar no avatar (ex: "Felipe Silva" -> "FS")
@@ -48,7 +46,10 @@ export default function PerfilScreen({ navigation }) {
         {/* ===== HEADER ===== */}
         <View style={perfilStyles.header}>
           <View style={perfilStyles.headerTop}>
-            <TouchableOpacity style={perfilStyles.iconButton} onPress={() => navigation.goBack()}>
+            <TouchableOpacity
+              style={perfilStyles.iconButton}
+              onPress={() => navigation.navigate('Home')}
+            >
               <Ionicons name="arrow-back" size={20} color={colors.white} />
             </TouchableOpacity>
 

@@ -15,7 +15,10 @@ export default function HomeScreen({ navigation }) {
       {/* ===== HEADER ===== */}
       <View style={styles.header}>
         <View style={styles.headerTop}>
-          <TouchableOpacity style={styles.iconButton}>
+          <TouchableOpacity
+            style={styles.iconButton}
+            onPress={() => navigation.navigate('Perfil')}
+          >
             <Ionicons name="menu" size={20} color={colors.white} />
           </TouchableOpacity>
 
@@ -58,9 +61,6 @@ export default function HomeScreen({ navigation }) {
           </View>
         </View>
 
-        <TouchableOpacity>
-          <Text style={styles.detalhes}>Ver detalhes</Text>
-        </TouchableOpacity>
       </View>
 
       {/* ===== AVISOS ===== */}
@@ -78,7 +78,10 @@ export default function HomeScreen({ navigation }) {
       </View>
 
       {/* ===== BOTÃO AGENDAR ===== */}
-      <TouchableOpacity style={styles.botao}>
+      <TouchableOpacity
+        style={styles.botao}
+        onPress={() => navigation.navigate('Consultas')}
+      >
         <Text style={styles.textoBotao}>Agendar</Text>
       </TouchableOpacity>
     </ScrollView>

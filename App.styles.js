@@ -170,13 +170,6 @@ export const styles = StyleSheet.create({
     color: colors.textPrimary,
   },
 
-  detalhes: {
-    fontSize: 13,
-    color: colors.primaryLight,
-    marginTop: 12,
-    fontWeight: "600",
-  },
-
   // ===== AVISOS =====
   avisos: {
     marginHorizontal: spacing.md - 4,

@@ -40,7 +40,7 @@ const HORARIOS = ['08:00', '09:00', '10:30', '13:00', '14:30', '16:00'];
 
 const TOTAL_ETAPAS = 4;
 
-export default function ConsultasScreen() {
+export default function ConsultasScreen({ navigation }) {
   const [etapa, setEtapa] = useState(1);
   const [especialidade, setEspecialidade] = useState(null);
   const [medico, setMedico] = useState(null);
@@ -79,7 +79,7 @@ export default function ConsultasScreen() {
         <View style={consultasStyles.headerTop}>
           <TouchableOpacity
             style={consultasStyles.iconButton}
-            onPress={etapa > 1 ? voltar : undefined}
+            onPress={etapa > 1 ? voltar : () => navigation.navigate('Perfil')}
           >
             <Ionicons
               name={etapa > 1 ? 'arrow-back' : 'menu'}
@@ -88,8 +88,10 @@ export default function ConsultasScreen() {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity style={consultasStyles.iconButton} 
-           onPress={() => navigation.navigate('Notificacoes')}>
+          <TouchableOpacity
+            style={consultasStyles.iconButton}
+            onPress={() => navigation.navigate('Notificacoes')}
+          >
             <Ionicons name="notifications-outline" size={20} color={colors.white} />
           </TouchableOpacity>
         </View>
