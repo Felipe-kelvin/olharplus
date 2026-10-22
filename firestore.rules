@@ -1,0 +1,56 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    function validProfile(data) {
+      return data.keys().hasOnly([
+          'nome',
+          'email',
+          'telefone',
+          'criadoEm',
+          'atualizadoEm'
+        ])
+        && data.keys().hasAll(['nome', 'email', 'telefone', 'criadoEm'])
+        && data.nome is string
+        && data.nome.size() >= 2
+        && data.nome.size() <= 100
+        && data.email is string
+        && data.email == request.auth.token.email
+        && data.telefone is string
+        && data.telefone.size() <= 30
+        && data.criadoEm is string
+        && data.criadoEm.size() > 0
+        && data.criadoEm.size() <= 40
+        && (
+          !('atualizadoEm' in data)
+          || (
+            data.atualizadoEm is string
+            && data.atualizadoEm.size() > 0
+            && data.atualizadoEm.size() <= 40
+          )
+        );
+    }
+
+    match /usuarios/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false;
+      allow create: if isOwner(userId) && validProfile(request.resource.data);
+      allow update: if isOwner(userId)
+        && validProfile(request.resource.data)
+        && request.resource.data.criadoEm == resource.data.criadoEm
+        && request.resource.data.email == resource.data.email
+        && request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['nome', 'telefone', 'atualizadoEm']);
+      allow delete: if false;
+    }
+
+    // Medical records and other collections require a trusted authorization flow.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
