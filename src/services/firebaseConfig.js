@@ -12,11 +12,10 @@ const firebaseConfig = {
   appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Evita erro de "app already initialized" no hot reload do Expo
+
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
-// initializeAuth só pode ser chamado uma vez — se o app já existia (hot reload),
-// usamos getAuth normal pra pegar a instância existente em vez de tentar criar de novo
+
 let auth;
 try {
   auth = initializeAuth(app, {

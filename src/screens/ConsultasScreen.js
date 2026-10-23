@@ -4,29 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../../App.styles';
 import { consultasStyles } from './ConsultasScreen.styles';
-
-const ESPECIALIDADES = [
-  { id: 'estrabismo', nome: 'Estrabismo', icone: 'eye-outline' },
-  { id: 'catarata', nome: 'Catarata', icone: 'sunny-outline' },
-  { id: 'glaucoma', nome: 'Glaucoma', icone: 'water-outline' },
-  { id: 'cornea', nome: 'Córnea', icone: 'aperture-outline' },
-];
-
-const MEDICOS = {
-  estrabismo: [
-    { id: '1', nome: 'Dr. Luís Fernando', sub: 'CRM 12345 · 8 anos de experiência' },
-    { id: '2', nome: 'Dra. Camila Rocha', sub: 'CRM 54321 · 5 anos de experiência' },
-  ],
-  catarata: [
-    { id: '3', nome: 'Dr. André Souza', sub: 'CRM 98765 · 12 anos de experiência' },
-  ],
-  glaucoma: [
-    { id: '4', nome: 'Dra. Beatriz Lima', sub: 'CRM 11223 · 10 anos de experiência' },
-  ],
-  cornea: [
-    { id: '5', nome: 'Dr. Rafael Gomes', sub: 'CRM 33445 · 7 anos de experiência' },
-  ],
-};
+import { ESPECIALIDADES, MEDICOS } from '../data/clinicInfo';
 
 const DATAS = [
   { dia: '24', semana: 'Qui' },

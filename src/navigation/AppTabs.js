@@ -3,6 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import HomeScreen from "../screens/HomeScreen";
 import ConsultasScreen from "../screens/ConsultasScreen";
+import ClinicaScreen from "../screens/ClinicaScreen";
 import PerfilStack from "./PerfilStack";
 import { colors } from "../../App.styles";
 
@@ -43,6 +44,7 @@ export default function AppTabs() {
           const icons = {
             Home: "home",
             Consultas: "calendar-outline",
+            Clínica: "business-outline",
             Perfil: "person-outline",
           };
 
@@ -52,6 +54,7 @@ export default function AppTabs() {
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Consultas" component={ConsultasScreen} />
+      <Tab.Screen name="Clínica" component={ClinicaScreen} />
       <Tab.Screen name="Perfil" component={PerfilStack} />
     </Tab.Navigator>
   );
