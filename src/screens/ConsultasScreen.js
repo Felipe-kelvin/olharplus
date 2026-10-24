@@ -1,24 +1,27 @@
 import { useState } from 'react';
-import { Text, View, TouchableOpacity, ScrollView} from 'react-native';
+import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../../App.styles';
 import { consultasStyles } from './ConsultasScreen.styles';
 import { ESPECIALIDADES, MEDICOS } from '../data/clinicInfo';
 
-const DATAS = [
-  { dia: '24', semana: 'Qui' },
-  { dia: '25', semana: 'Sexta' },
-  { dia: '26', semana: 'Sáb' },
-  { dia: '28', semana: 'Seg' },
-  { dia: '29', semana: 'Ter' },
-];
+const DATAS = Array.from({ length: 5 }, (_, index) => {
+  const date = new Date();
+  date.setDate(date.getDate() + index + 1);
+
+  return {
+    dia: date.toISOString(),
+    semana: date.toLocaleDateString('pt-BR', { weekday: 'short' }),
+    date,
+  };
+});
 
 const HORARIOS = ['08:00', '09:00', '10:30', '13:00', '14:30', '16:00'];
 
 const TOTAL_ETAPAS = 4;
 
-export default function ConsultasScreen({ navigation }) {
+export default function ConsultasScreen({ navigation, onConfirmarAgendamento }) {
   const [etapa, setEtapa] = useState(1);
   const [especialidade, setEspecialidade] = useState(null);
   const [medico, setMedico] = useState(null);
@@ -44,8 +47,13 @@ export default function ConsultasScreen({ navigation }) {
   };
 
   const confirmarAgendamento = () => {
-    // Aqui entra a chamada pra API / navegação de sucesso
-    alert('Consulta agendada com sucesso!');
+    onConfirmarAgendamento?.({
+      especialidade: especialidade.nome,
+      medico: medico.nome,
+      data: data.date.toISOString(),
+      horario,
+    });
+    navigation.goBack();
   };
 
   return (
@@ -57,7 +65,7 @@ export default function ConsultasScreen({ navigation }) {
         <View style={consultasStyles.headerTop}>
           <TouchableOpacity
             style={consultasStyles.iconButton}
-            onPress={etapa > 1 ? voltar : () => navigation.navigate('Perfil')}
+            onPress={etapa > 1 ? voltar : () => navigation.goBack()}
           >
             <Ionicons
               name={etapa > 1 ? 'arrow-back' : 'menu'}
@@ -207,7 +215,7 @@ export default function ConsultasScreen({ navigation }) {
                     onPress={() => setData(item)}
                   >
                     <Text style={[consultasStyles.dataItemDia, ativo && consultasStyles.dataItemDiaAtivo]}>
-                      {item.dia}
+                      {item.date.getDate()}
                     </Text>
                     <Text style={[consultasStyles.dataItemSemana, ativo && consultasStyles.dataItemSemanaAtivo]}>
                       {item.semana}
@@ -276,7 +284,7 @@ export default function ConsultasScreen({ navigation }) {
               <View>
                 <Text style={consultasStyles.resumoLabel}>Data e horário</Text>
                 <Text style={consultasStyles.resumoValor}>
-                  {data?.dia}/{data?.semana} às {horario}
+                  {data?.date.toLocaleDateString('pt-BR')} às {horario}
                 </Text>
               </View>
             </View>

@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
 import HomeScreen from "../screens/HomeScreen";
-import ConsultasScreen from "../screens/ConsultasScreen";
+import ConsultasStack from "./ConsultasStack";
 import ClinicaScreen from "../screens/ClinicaScreen";
 import PerfilStack from "./PerfilStack";
 import { colors } from "../../App.styles";
@@ -53,7 +53,7 @@ export default function AppTabs() {
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Consultas" component={ConsultasScreen} />
+      <Tab.Screen name="Consultas" component={ConsultasStack} />
       <Tab.Screen name="Clínica" component={ClinicaScreen} />
       <Tab.Screen name="Perfil" component={PerfilStack} />
     </Tab.Navigator>
